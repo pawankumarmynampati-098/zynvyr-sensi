@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Zynvyr Sensi</title>
+<style>
+body{
+background:#111;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+.box{
+background:#222;
+padding:20px;
+margin:20px;
+border-radius:15px;
+}
+input,select,button{
+width:90%;
+padding:12px;
+margin:8px;
+border-radius:8px;
+}
+button{
+background:#00ff88;
+font-weight:bold;
+}
+#result{
+margin-top:20px;
+background:#333;
+padding:15px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Zynvyr Sensi</h1>
+<p>AI Style Sensitivity Generator</p>
+
+<div class="box">
+
+<input id="device" placeholder="Device Model">
+
+<input id="ram" type="number" placeholder="RAM GB">
+
+<input id="processor" placeholder="Processor">
+
+<input id="hz" type="number" placeholder="Refresh Rate Hz">
+
+<select id="style">
+<option value="rusher">Aggressive Rusher</option>
+<option value="balanced">Balanced</option>
+<option value="sniper">Sniper</option>
+</select>
+
+<input id="fire" type="number" placeholder="Fire Button Size %">
+
+<button onclick="generate()">Generate Sensitivity</button>
+
+<div id="result"></div>
+
+</div>
+
+
+<script>
+
+function generate(){
+
+let ram = Number(document.getElementById("ram").value);
+let hz = Number(document.getElementById("hz").value);
+let fire = Number(document.getElementById("fire").value);
+let style = document.getElementById("style").value;
+
+
+let score = 120;
+
+// RAM calculation
+if(ram >= 12) score += 20;
+else if(ram >= 8) score += 15;
+else if(ram >= 6) score += 10;
+
+
+// Refresh rate calculation
+if(hz >= 120) score += 15;
+else if(hz >= 90) score += 10;
+
+
+// Fire button adjustment
+if(fire >= 45 && fire <= 60) score += 5;
+
+
+// Play style adjustment
+if(style=="rusher") score += 15;
+if(style=="sniper") score -= 10;
+
+
+let general = Math.min(score,200);
+let red = Math.min(score-5,200);
+let twoX = Math.min(score-10,200);
+let fourX = Math.min(score-15,200);
+let awm = Math.min(score-20,200);
+
+
+document.getElementById("result").innerHTML =
+"<h3>Generated Sensi</h3>"+
+"General: "+general+"<br>"+
+"Red Dot: "+red+"<br>"+
+"2x Scope: "+twoX+"<br>"+
+"4x Scope: "+fourX+"<br>"+
+"AWM: "+awm+"<br>"+
+"Free Look: "+general+"<br><br>"+
+"Based on your device & play style";
+
+
+}
+
+</script>
+
+</body>
+</html>
